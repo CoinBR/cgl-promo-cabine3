@@ -1,0 +1,16 @@
+version: "3.7"
+services:
+  cabine3:
+    build: .
+    environment:
+      - TZ='America/Recife'
+      - NUNBUFFERED=0
+    working_dir: /usr/src/app 
+    volumes:
+      - ./app/:/usr/src/app 
+    ports:
+      - "8081:8081"
+    command: "python -u main.py"
+networks:
+  sgl_promo:
+    driver: host
