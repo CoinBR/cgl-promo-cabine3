@@ -1,3 +1,6 @@
+#!/bin/bash
+cd "$(dirname "$0")"
+
 if (( $EUID != 0 )); then
   docker-compose run node bash 
   exit
