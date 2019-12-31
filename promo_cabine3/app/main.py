@@ -95,4 +95,4 @@ while True:
         print(e)
         reset_fdb_connection()
     finally:
-        time.sleep(1 * 3)
+        time.sleep(1 * 60)
