@@ -31,6 +31,14 @@ def new_cursor():
 def reset_fdb_connection():
     global con
     while True:
+
+        try:
+            con.rollback()
+            print('database rollback executed sucessfully')
+        except Exception as e:
+            print('could not rollback transaction')
+            print(e)
+
         try:
             con = fdb.connect(
                         **credentials,
@@ -75,7 +83,7 @@ def apply_cabine3_disccount():
         dt_subtraction = datetime.timedelta(hours=2, minutes=59)
         return time_to_sgl(get_curdatetime() - dt_subtraction)
 
-    reset_fdb_connection()
+    # reset_fdb_connection()
 
     sql = ("UPDATE movimento SET tipopag='Cabine3' "
            "WHERE tipopag='Cabine' "
@@ -88,6 +96,7 @@ while True:
     try:
         with timeout(7):
             apply_cabine3_disccount()
+            con.commit()
             print(now + 'Cabine3 SQL Disccount command executed sucessfully executed')
     except Exception as e:
         print('----------------')
